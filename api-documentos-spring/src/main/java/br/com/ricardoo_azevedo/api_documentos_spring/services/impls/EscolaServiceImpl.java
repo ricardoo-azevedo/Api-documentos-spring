@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import br.com.ricardoo_azevedo.api_documentos_spring.dtos.EscolaDto;
 import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.exceptions.EscolaJaCadastradaException;
 import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.exceptions.EscolaNaoEncontradaException;
@@ -16,7 +15,6 @@ import br.com.ricardoo_azevedo.api_documentos_spring.models.Escola;
 import br.com.ricardoo_azevedo.api_documentos_spring.models.Escola.Tipo;
 import br.com.ricardoo_azevedo.api_documentos_spring.repositorys.EscolaRepository;
 import br.com.ricardoo_azevedo.api_documentos_spring.services.interfaces.EscolaServiceInterface;
-
 @Service
 public class EscolaServiceImpl implements EscolaServiceInterface {
 
@@ -63,12 +61,8 @@ public class EscolaServiceImpl implements EscolaServiceInterface {
         if (nomeAntigo.isBlank()) {
             throw new NomeInvalidoException();
         }
-        Escola escola = null;
-        try {
-            escola = escolaRepository.findByNome(nomeAntigo);
-        } catch (EscolaNaoEncontradaException e) {
-            throw new EscolaNaoEncontradaException();
-        }
+        Escola escola = escolaRepository.findByNome(nomeAntigo).orElseThrow(()->new EscolaNaoEncontradaException());
+        
         if (escolaRepository.existsByNome(escolaDto.getNome())) {
             throw new EscolaJaCadastradaException();
         }
@@ -96,12 +90,7 @@ public class EscolaServiceImpl implements EscolaServiceInterface {
     @Override
     public EscolaDto pesquisarPorNome(String nome) {
         Escola escola = null;
-        try {
-            escola = escolaRepository.findByNome(nome);
-        } catch (EscolaNaoEncontradaException e) {
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }
+        escola = escolaRepository.findByNome(nome).orElseThrow(()->new EscolaNaoEncontradaException());
         return new EscolaDto(
                 escola.getNome(),
                 escola.getTipoEscola().toString());
