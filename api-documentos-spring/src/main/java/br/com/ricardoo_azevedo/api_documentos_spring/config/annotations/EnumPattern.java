@@ -20,5 +20,6 @@ public @interface EnumPattern{
 
     Class<?>[] groups() default {}; 
 
-    Class<? extends Payload>[] Payload() default {}; 
+    Class<? extends Payload>[] payload() default {}; 
+
 }
