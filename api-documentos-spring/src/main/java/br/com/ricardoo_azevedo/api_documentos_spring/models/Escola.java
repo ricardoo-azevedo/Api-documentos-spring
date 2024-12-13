@@ -33,9 +33,8 @@ public class Escola {
     @Column(name = "tipo_escola", nullable = false, columnDefinition = "ENUM('Pública', 'Privada')")
     private Tipo tipoEscola;
 
-    
     public enum Tipo{
-        PÚBLICA,
-        PRIVADA
+        Pública,
+        Privada
     }
 }
