@@ -35,7 +35,7 @@ public class EscolaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(escolaSalva);
     }
 
-    @PutMapping("/editar-por-id/{id}")
+    @PutMapping("/editar-por-id={id}")
     public ResponseEntity<?> editarPorId(@RequestBody @Valid EscolaDto escolaDto,
             BindingResult bindingResult, @PathVariable Long id) {
         if (bindingResult.hasErrors()) {
@@ -45,7 +45,7 @@ public class EscolaController {
         return ResponseEntity.ok().body(escolaEditada);
     }
 
-    @PutMapping("/editar-por-nome/{nomeAntigo}")
+    @PutMapping("/editar-por-nome={nomeAntigo}")
     public ResponseEntity<?> editarPorNome(@RequestBody @Valid EscolaDto escolaDto, BindingResult bindingResult,
             @PathVariable String nomeAntigo) {
         if (bindingResult.hasErrors()) {
@@ -61,13 +61,13 @@ public class EscolaController {
         return ResponseEntity.ok(escolaDtos);
     }
 
-    @GetMapping("/pesquisar-por-id/{id}")
+    @GetMapping("/pesquisar-por-id={id}")
     public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
         EscolaDto escolaDto = escolaServiceImpl.pesquisarPorId(id);
         return ResponseEntity.ok().body(escolaDto);
     }
 
-    @GetMapping("/pesquisar-por-nome/{nome}")
+    @GetMapping("/pesquisar-por-nome={nome}")
     public ResponseEntity<?> buscarPorId(@PathVariable String nome) {
         EscolaDto escolaDto = escolaServiceImpl.pesquisarPorNome(nome);
         return ResponseEntity.ok().body(escolaDto);
