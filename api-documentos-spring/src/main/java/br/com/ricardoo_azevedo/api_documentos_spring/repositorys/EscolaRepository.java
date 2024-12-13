@@ -16,6 +16,6 @@ public interface EscolaRepository extends JpaRepository<Escola, Long>{
 
     boolean existsByNome(String nome);
 
-    void deleteByNome(String nome);
+    // void deleteByNome(String nome);
 
 }
