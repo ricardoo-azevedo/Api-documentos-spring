@@ -13,15 +13,10 @@ import lombok.ToString;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
 public class EscolaDto {
     
-    public EscolaDto(String nome){
-        this.nome = nome;
-    }
-
-    @NotBlank(message = "O espaço não deve ser nulo")
+    @NotBlank(message = "O Nome não deve ser nulo")
     private String nome;
 
     @EnumPattern(enumClass = Tipo.class, message = "valor invalido! Valores aceitos: Pública, Privada")
     @NotNull(message = "O Tipo não deve ser nulo!")
     private String tipoEscola;
-    
 }
