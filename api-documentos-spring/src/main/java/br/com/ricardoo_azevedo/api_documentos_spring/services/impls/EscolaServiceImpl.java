@@ -17,6 +17,7 @@ import br.com.ricardoo_azevedo.api_documentos_spring.models.Escola;
 import br.com.ricardoo_azevedo.api_documentos_spring.models.Escola.Tipo;
 import br.com.ricardoo_azevedo.api_documentos_spring.repositorys.EscolaRepository;
 import br.com.ricardoo_azevedo.api_documentos_spring.services.interfaces.EscolaServiceInterface;
+
 @Service
 public class EscolaServiceImpl implements EscolaServiceInterface {
 
@@ -32,7 +33,7 @@ public class EscolaServiceImpl implements EscolaServiceInterface {
         escola.setNome(escolaDto.getNome());
         escola.setTipoEscola(Tipo.valueOf(escolaDto.getTipoEscola()));
         Escola escolaSalva = escolaRepository.save(escola);
-        
+
         return new EscolaOutputDto(escolaSalva.getId(), escolaSalva.getNome(), escolaSalva.getTipoEscola().toString());
     }
 
@@ -44,7 +45,7 @@ public class EscolaServiceImpl implements EscolaServiceInterface {
         if (!(id instanceof Long)) {
             throw new IdInvalidoException();
         }
-        Escola escola = escolaRepository.findById(id).orElseThrow(()-> new EscolaNaoEncontradaException());
+        Escola escola = escolaRepository.findById(id).orElseThrow(() -> new EscolaNaoEncontradaException());
         if (escolaRepository.existsByNome(escolaDto.getNome())) {
             throw new EscolaJaCadastradaException();
         }
@@ -63,8 +64,8 @@ public class EscolaServiceImpl implements EscolaServiceInterface {
         if (nomeAntigo.isBlank()) {
             throw new NomeInvalidoException();
         }
-        Escola escola = escolaRepository.findByNome(nomeAntigo).orElseThrow(()->new EscolaNaoEncontradaException());
-        
+        Escola escola = escolaRepository.findByNome(nomeAntigo).orElseThrow(() -> new EscolaNaoEncontradaException());
+
         if (escolaRepository.existsByNome(escolaDto.getNome())) {
             throw new EscolaJaCadastradaException();
         }
@@ -92,13 +93,17 @@ public class EscolaServiceImpl implements EscolaServiceInterface {
     }
 
     @Override
-    public EscolaOutputDto pesquisarPorNome(String nome) {
-        Escola escola = null;
-        escola = escolaRepository.findByNome(nome).orElseThrow(()->new EscolaNaoEncontradaException());
-        return new EscolaOutputDto(
-                escola.getId(),
-                escola.getNome(),
-                escola.getTipoEscola().toString());
+    public List<EscolaOutputDto> pesquisarPorNome(String nome) {
+        List<Escola> resultados = escolaRepository.findByNomeEscola(nome);
+        if (resultados.isEmpty()) {
+            throw new EscolaNaoEncontradaException();
+        }
+        return resultados.stream().map(
+                escola -> new EscolaOutputDto(
+                        escola.getId(),
+                        escola.getNome(),
+                        escola.getTipoEscola().toString()))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -114,7 +119,7 @@ public class EscolaServiceImpl implements EscolaServiceInterface {
                         escola.getId(),
                         escola.getNome(),
                         escola.getTipoEscola().toString()))
-                .orElseThrow(()-> new EscolaNaoEncontradaException());
+                .orElseThrow(() -> new EscolaNaoEncontradaException());
     }
 
     @Override

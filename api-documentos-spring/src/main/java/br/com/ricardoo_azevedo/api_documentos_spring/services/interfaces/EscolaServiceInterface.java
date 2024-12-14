@@ -16,7 +16,7 @@ public interface EscolaServiceInterface {
 
     EscolaOutputDto pesquisarPorId(Long id);
 
-    EscolaOutputDto pesquisarPorNome(String nome);
+    List<EscolaOutputDto> pesquisarPorNome(String nome);
 
     void deletarPorId(Long id);
 
