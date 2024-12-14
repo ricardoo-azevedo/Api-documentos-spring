@@ -19,6 +19,4 @@ public interface EscolaServiceInterface {
 
     void deletarPorId(Long id);
 
-    // void deletarPorNome(String nome);
-
 } 

@@ -78,12 +78,4 @@ public class EscolaController {
         escolaServiceImpl.deletarPorId(id);
         return ResponseEntity.noContent().build();
     }
-
-    // @DeleteMapping("/deletar-por-nome={nome}")
-    // public ResponseEntity<?> deletarPorId(@PathVariable String nome){
-    //     escolaServiceImpl.deletarPorNome(nome);
-    //     return ResponseEntity.noContent().build();
-    // }
-
-
 }

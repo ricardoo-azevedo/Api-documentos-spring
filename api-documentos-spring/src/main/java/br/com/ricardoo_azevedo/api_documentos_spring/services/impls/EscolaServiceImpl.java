@@ -125,15 +125,4 @@ public class EscolaServiceImpl implements EscolaServiceInterface {
         escolaRepository.deleteById(id);
     }
 
-    // @Override
-    // public void deletarPorNome(String nome) {
-    //     if (nome.isBlank()) {
-    //         throw new NomeInvalidoException();
-    //     }
-    //     if(escolaRepository.existsByNome(nome) == false){
-    //         throw new EscolaNaoEncontradaException();
-    //     }
-    //     escolaRepository.deleteByNome(nome);
-    // }
-
 }
