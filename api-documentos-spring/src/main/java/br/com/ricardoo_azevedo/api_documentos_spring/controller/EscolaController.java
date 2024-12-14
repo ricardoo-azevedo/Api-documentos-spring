@@ -69,13 +69,13 @@ public class EscolaController {
     }
 
     @GetMapping("/pesquisar-por-nome={nome}")
-    public ResponseEntity<?> buscarPorId(@PathVariable String nome) {
-        EscolaOutputDto escolaDto = escolaServiceImpl.pesquisarPorNome(nome);
-        return ResponseEntity.ok().body(escolaDto);
+    public ResponseEntity<List<?>> buscarPorNome(@PathVariable String nome) {
+        List<EscolaOutputDto> escolaDtos = escolaServiceImpl.pesquisarPorNome(nome);
+        return ResponseEntity.ok(escolaDtos);
     }
 
     @DeleteMapping("/deletar-por-id={id}")
-    public ResponseEntity<?> deletarPorId(@PathVariable Long id){
+    public ResponseEntity<?> deletarPorId(@PathVariable Long id) {
         escolaServiceImpl.deletarPorId(id);
         return ResponseEntity.noContent().build();
     }
