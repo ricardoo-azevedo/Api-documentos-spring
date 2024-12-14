@@ -1,21 +1,22 @@
 package br.com.ricardoo_azevedo.api_documentos_spring.services.interfaces;
 import java.util.List;
 
-import br.com.ricardoo_azevedo.api_documentos_spring.dtos.EscolaDto;
+import br.com.ricardoo_azevedo.api_documentos_spring.dtos.input.EscolaInputDto;
+import br.com.ricardoo_azevedo.api_documentos_spring.dtos.output.EscolaOutputDto;
 
 public interface EscolaServiceInterface {
 
-    EscolaDto salvar(EscolaDto escolaDto);
+    EscolaOutputDto salvar(EscolaInputDto escolaDto);
 
-    EscolaDto editarPorId(EscolaDto escolaDto, Long id);
+    EscolaOutputDto editarPorId(EscolaInputDto escolaDto, Long id);
 
-    EscolaDto editarPorNome(EscolaDto escolaDto, String nomeAntigo);
+    EscolaOutputDto editarPorNome(EscolaInputDto escolaDto, String nomeAntigo);
 
-    List<EscolaDto> listar();
+    List<EscolaOutputDto> listar();
 
-    EscolaDto pesquisarPorId(Long id);
+    EscolaOutputDto pesquisarPorId(Long id);
 
-    EscolaDto pesquisarPorNome(String nome);
+    EscolaOutputDto pesquisarPorNome(String nome);
 
     void deletarPorId(Long id);
 

@@ -5,7 +5,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import br.com.ricardoo_azevedo.api_documentos_spring.dtos.EscolaDto;
+
+import br.com.ricardoo_azevedo.api_documentos_spring.dtos.input.EscolaInputDto;
+import br.com.ricardoo_azevedo.api_documentos_spring.dtos.output.EscolaOutputDto;
 import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.exceptions.EscolaJaCadastradaException;
 import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.exceptions.EscolaNaoEncontradaException;
 import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.exceptions.IdInvalidoException;
@@ -22,7 +24,7 @@ public class EscolaServiceImpl implements EscolaServiceInterface {
     EscolaRepository escolaRepository;
 
     @Override
-    public EscolaDto salvar(EscolaDto escolaDto) {
+    public EscolaOutputDto salvar(EscolaInputDto escolaDto) {
         Escola escola = new Escola();
         if (escolaRepository.existsByNome(escolaDto.getNome())) {
             throw new EscolaJaCadastradaException();
@@ -30,13 +32,12 @@ public class EscolaServiceImpl implements EscolaServiceInterface {
         escola.setNome(escolaDto.getNome());
         escola.setTipoEscola(Tipo.valueOf(escolaDto.getTipoEscola()));
         Escola escolaSalva = escolaRepository.save(escola);
-        return new EscolaDto(
-                escolaSalva.getNome(),
-                escolaSalva.getTipoEscola().toString());
+        
+        return new EscolaOutputDto(escolaSalva.getId(), escolaSalva.getNome(), escolaSalva.getTipoEscola().toString());
     }
 
     @Override
-    public EscolaDto editarPorId(EscolaDto escolaDto, Long id) {
+    public EscolaOutputDto editarPorId(EscolaInputDto escolaDto, Long id) {
         if (id == null) {
             throw new IdInvalidoException("O id esta nulo!");
         }
@@ -50,14 +51,15 @@ public class EscolaServiceImpl implements EscolaServiceInterface {
         escola.setNome(escolaDto.getNome());
         escola.setTipoEscola(Tipo.valueOf(escolaDto.getTipoEscola()));
         Escola escolaEditada = escolaRepository.save(escola);
-        return new EscolaDto(
+        return new EscolaOutputDto(
+                escolaEditada.getId(),
                 escolaEditada.getNome(),
                 escolaEditada.getTipoEscola().toString());
 
     }
 
     @Override
-    public EscolaDto editarPorNome(EscolaDto escolaDto, String nomeAntigo) {
+    public EscolaOutputDto editarPorNome(EscolaInputDto escolaDto, String nomeAntigo) {
         if (nomeAntigo.isBlank()) {
             throw new NomeInvalidoException();
         }
@@ -69,35 +71,38 @@ public class EscolaServiceImpl implements EscolaServiceInterface {
         escola.setNome(escolaDto.getNome());
         escola.setTipoEscola(Tipo.valueOf(escolaDto.getTipoEscola()));
         Escola escolaEditada = escolaRepository.save(escola);
-        return new EscolaDto(
+        return new EscolaOutputDto(
+                escolaEditada.getId(),
                 escolaEditada.getNome(),
                 escolaEditada.getTipoEscola().toString());
     }
 
     @Override
-    public List<EscolaDto> listar() {
+    public List<EscolaOutputDto> listar() {
         List<Escola> escolas = escolaRepository.findAll();
         if (escolas.isEmpty()) {
             throw new ListaVaziaException();
         }
         return escolas.stream().map(
-                escola -> new EscolaDto(
+                escola -> new EscolaOutputDto(
+                        escola.getId(),
                         escola.getNome(),
                         escola.getTipoEscola().toString()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public EscolaDto pesquisarPorNome(String nome) {
+    public EscolaOutputDto pesquisarPorNome(String nome) {
         Escola escola = null;
         escola = escolaRepository.findByNome(nome).orElseThrow(()->new EscolaNaoEncontradaException());
-        return new EscolaDto(
+        return new EscolaOutputDto(
+                escola.getId(),
                 escola.getNome(),
                 escola.getTipoEscola().toString());
     }
 
     @Override
-    public EscolaDto pesquisarPorId(Long id) {
+    public EscolaOutputDto pesquisarPorId(Long id) {
         if (id == null) {
             throw new IdInvalidoException("O id é nulo");
         }
@@ -105,7 +110,8 @@ public class EscolaServiceImpl implements EscolaServiceInterface {
             throw new IdInvalidoException();
         }
         return escolaRepository.findById(id)
-                .map(escola -> new EscolaDto(
+                .map(escola -> new EscolaOutputDto(
+                        escola.getId(),
                         escola.getNome(),
                         escola.getTipoEscola().toString()))
                 .orElseThrow(()-> new EscolaNaoEncontradaException());
