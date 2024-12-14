@@ -1,4 +1,4 @@
-package br.com.ricardoo_azevedo.api_documentos_spring.dtos;
+package br.com.ricardoo_azevedo.api_documentos_spring.dtos.input;
 
 import br.com.ricardoo_azevedo.api_documentos_spring.config.annotations.EnumPattern;
 import br.com.ricardoo_azevedo.api_documentos_spring.models.Escola.Tipo;
@@ -11,7 +11,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
-public class EscolaDto {
+public class EscolaInputDto {
     
     @NotBlank(message = "O Nome não deve ser nulo")
     private String nome;
