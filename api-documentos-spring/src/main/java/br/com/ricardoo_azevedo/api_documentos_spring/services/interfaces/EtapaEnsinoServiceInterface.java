@@ -9,7 +9,7 @@ public interface EtapaEnsinoServiceInterface {
 
     EtapaEnsinoOutputDto salvar(EtapaEnsinoInputDto etapaEnsinoInputDto);
 
-    EtapaEnsinoOutputDto editar(EtapaEnsinoOutputDto etapaEnsinoOutputDto);
+    EtapaEnsinoOutputDto editar(EtapaEnsinoInputDto etapaEnsinoInputDto, Long id);
 
     List<EtapaEnsinoOutputDto> listar();
 
