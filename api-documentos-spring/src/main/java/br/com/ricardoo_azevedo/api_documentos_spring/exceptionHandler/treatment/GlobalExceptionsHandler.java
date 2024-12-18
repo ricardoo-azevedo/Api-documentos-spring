@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.exceptions.EmailJaCadastradoException;
 import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.exceptions.EscolaJaCadastradaException;
 import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.exceptions.EscolaNaoEncontradaException;
 import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.exceptions.EtapaEnsinoNaoEncontradaException;
@@ -63,6 +64,12 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UsuarioJaCadastradoException.class)
     ResponseEntity<RestErrorMessage> EscolaJaCadastradaException(UsuarioJaCadastradoException exception){
+        RestErrorMessage response = new RestErrorMessage(HttpStatus.FOUND, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.FOUND).body(response);     
+    }
+
+    @ExceptionHandler(EmailJaCadastradoException.class)
+    ResponseEntity<RestErrorMessage> EmailJaCadastradoException(EmailJaCadastradoException exception){
         RestErrorMessage response = new RestErrorMessage(HttpStatus.FOUND, exception.getMessage());
         return ResponseEntity.status(HttpStatus.FOUND).body(response);     
     }
