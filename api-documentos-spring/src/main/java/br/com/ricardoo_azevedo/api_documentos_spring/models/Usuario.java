@@ -30,7 +30,7 @@ public class Usuario {
     @Column(name = "email_usuario", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "senha_usuario", nullable = false, unique = true)
+    @Column(name = "senha_usuario", nullable = false)
     private String senha;
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")

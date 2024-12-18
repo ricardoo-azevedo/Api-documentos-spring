@@ -15,10 +15,10 @@ public class UsuarioInputDto{
     private String nomeCompleto;
 
     @NotBlank(message = "Email precisa ser incluso")
-    @Size(max = 225, message = "Ultrapassou o limite maximo de caracteres!")
+    @Size(max = 225, min = 8, message = "Ultrapassou o limite maximo de caracteres = 225 ou o limite minimo = 8!")
     private String email;
 
     @NotBlank(message = "Senha precisa ser incluso")
-    @Size(max = 225, message = "Ultrapassou o limite maximo de caracteres!")
+    @Size(max = 225, min = 8, message = "Ultrapassou o limite maximo de caracteres = 225 ou o limite minimo = 8!")
     private String senha;
 }
