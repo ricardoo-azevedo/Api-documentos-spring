@@ -12,6 +12,8 @@ import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.exceptions
 import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.exceptions.IdInvalidoException;
 import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.exceptions.ListaVaziaException;
 import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.exceptions.NomeInvalidoException;
+import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.exceptions.UsuarioJaCadastradoException;
+import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.exceptions.UsuarioNaoEncontradoException;
 import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.formatter.RestErrorMessage;
 
 @ControllerAdvice
@@ -51,6 +53,18 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
     ResponseEntity<RestErrorMessage> EtapaEnsinoNaoEncontradaException(EtapaEnsinoNaoEncontradaException exception){
         RestErrorMessage response = new RestErrorMessage(HttpStatus.NOT_FOUND, exception.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+    @ExceptionHandler(UsuarioNaoEncontradoException.class)
+    ResponseEntity<RestErrorMessage> UsuarioNaoEncontradoException(UsuarioNaoEncontradoException exception){
+        RestErrorMessage response = new RestErrorMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+    @ExceptionHandler(UsuarioJaCadastradoException.class)
+    ResponseEntity<RestErrorMessage> EscolaJaCadastradaException(UsuarioJaCadastradoException exception){
+        RestErrorMessage response = new RestErrorMessage(HttpStatus.FOUND, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.FOUND).body(response);     
     }
 
 }
