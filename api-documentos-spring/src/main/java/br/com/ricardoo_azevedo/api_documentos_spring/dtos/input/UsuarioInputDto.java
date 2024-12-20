@@ -23,7 +23,4 @@ public class UsuarioInputDto{
     @NotBlank(message = "Senha precisa ser incluso")
     @Size(max = 225, min = 8, message = "Ultrapassou o limite maximo de caracteres = 225 ou o limite minimo = 8!")
     private String senha;
-
-    @EnumPattern(enumClass = TipoUsuario.class, message = "Valores Invalidos! Valores aceitos: Admin, Básico!")
-    private String tipoUsuario;
 }

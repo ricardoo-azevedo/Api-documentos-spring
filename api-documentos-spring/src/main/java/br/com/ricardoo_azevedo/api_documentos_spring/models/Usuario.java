@@ -38,12 +38,4 @@ public class Usuario {
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp data_criacao;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_usuario", nullable = false, columnDefinition = "ENUM ('Básico', 'Admin')")
-    private TipoUsuario tipoUsuario;
-
-    public enum TipoUsuario{
-        Básico,
-        Admin
-    }
 }

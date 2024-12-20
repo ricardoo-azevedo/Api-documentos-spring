@@ -42,7 +42,6 @@ public class UsuarioServiceImpl implements UsuarioServiceInterface {
                 usuarioSalvo.getNomeCompleto(),
                 usuarioSalvo.getEmail(),
                 usuarioSalvo.getSenha(),
-                usuarioSalvo.getTipoUsuario().toString(),
                 usuarioSalvo.getData_criacao());
 
     }
@@ -71,7 +70,6 @@ public class UsuarioServiceImpl implements UsuarioServiceInterface {
                 usuarioEditado.getNomeCompleto(),
                 usuarioEditado.getEmail(),
                 usuarioEditado.getSenha(),
-                usuarioEditado.getTipoUsuario().toString(),
                 usuarioEditado.getData_criacao());
     }
 
@@ -97,7 +95,6 @@ public class UsuarioServiceImpl implements UsuarioServiceInterface {
                 usuarioEditado.getNomeCompleto(),
                 usuarioEditado.getEmail(),
                 usuarioEditado.getSenha(),
-                usuarioEditado.getTipoUsuario().toString(),
                 usuarioEditado.getData_criacao());
 
     }
@@ -114,7 +111,6 @@ public class UsuarioServiceImpl implements UsuarioServiceInterface {
                         usuario.getNomeCompleto(),
                         usuario.getEmail(),
                         usuario.getSenha(),
-                        usuario.getTipoUsuario().toString(),
                         usuario.getData_criacao()))
                 .collect(Collectors.toList());
     }
@@ -133,7 +129,6 @@ public class UsuarioServiceImpl implements UsuarioServiceInterface {
                         usuario.getNomeCompleto(),
                         usuario.getEmail(),
                         usuario.getSenha(),
-                        usuario.getTipoUsuario().toString(),
                         usuario.getData_criacao()))
                 .orElseThrow(() -> new UsuarioNaoEncontradoException());
     }
@@ -150,7 +145,6 @@ public class UsuarioServiceImpl implements UsuarioServiceInterface {
                         usuario.getNomeCompleto(),
                         usuario.getEmail(),
                         usuario.getSenha(),
-                        usuario.getTipoUsuario().toString(),
                         usuario.getData_criacao()))
                 .collect(Collectors.toList());
     }
