@@ -1,7 +1,5 @@
 package br.com.ricardoo_azevedo.api_documentos_spring.dtos.input;
 
-import br.com.ricardoo_azevedo.api_documentos_spring.config.annotations.EnumPattern;
-import br.com.ricardoo_azevedo.api_documentos_spring.models.Usuario.TipoUsuario;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
