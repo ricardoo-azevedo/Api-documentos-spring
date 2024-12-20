@@ -17,5 +17,7 @@ public class UsuarioOutputDto{
 
     private String senha;
 
+    private String tipoUsuario;
+
     private Timestamp dataCriacao;
 }
