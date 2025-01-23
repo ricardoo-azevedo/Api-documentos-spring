@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ricardoo_azevedo.api_documentos_spring.dtos.input.EtapaEnsinoInputDto;
-import br.com.ricardoo_azevedo.api_documentos_spring.dtos.output.EtapaEnsinoOutputDto;
+import br.com.ricardoo_azevedo.api_documentos_spring.dtos.EtapaEnsinoDto;
 import br.com.ricardoo_azevedo.api_documentos_spring.services.impls.EtapaEnsinoServiceImpl;
 import jakarta.validation.Valid;
 
@@ -28,34 +27,34 @@ public class EtapaEnsinoController {
     private EtapaEnsinoServiceImpl ensinoServiceImpl;
 
     @PostMapping
-    public ResponseEntity<?> salvar(@RequestBody @Valid EtapaEnsinoInputDto etapaEnsinoInputDto,
+    public ResponseEntity<?> salvar(@RequestBody @Valid EtapaEnsinoDto etapaEnsinoInputDto,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
-        EtapaEnsinoOutputDto etapaSalva = ensinoServiceImpl.salvar(etapaEnsinoInputDto);
+        EtapaEnsinoDto etapaSalva = ensinoServiceImpl.salvar(etapaEnsinoInputDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(etapaSalva);
     }
 
     @PutMapping("/editar-por-id={id}")
-    public ResponseEntity<?> editar(@RequestBody @Valid EtapaEnsinoInputDto etapaEnsinoInputDto,
+    public ResponseEntity<?> editar(@RequestBody @Valid EtapaEnsinoDto etapaEnsinoInputDto,
             BindingResult bindingResult, @PathVariable Long id) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
-        EtapaEnsinoOutputDto etapaEditada = ensinoServiceImpl.editar(etapaEnsinoInputDto, id);
+        EtapaEnsinoDto etapaEditada = ensinoServiceImpl.editar(etapaEnsinoInputDto, id);
         return ResponseEntity.ok().body(etapaEditada);
     }
 
     @GetMapping
     public ResponseEntity<List<?>> listar() {
-        List<EtapaEnsinoOutputDto> etapaEnsinoOutputDtos = ensinoServiceImpl.listar();
+        List<EtapaEnsinoDto> etapaEnsinoOutputDtos = ensinoServiceImpl.listar();
         return ResponseEntity.ok().body(etapaEnsinoOutputDtos);
     }
 
     @GetMapping("/pesquisar-por-id={id}")
     public ResponseEntity<?> pesquisar(@PathVariable Long id) {
-        EtapaEnsinoOutputDto ensinoOutputDto = ensinoServiceImpl.pesquisar(id);
+        EtapaEnsinoDto ensinoOutputDto = ensinoServiceImpl.pesquisar(id);
         return ResponseEntity.status(HttpStatus.FOUND).body(ensinoOutputDto);
     }
 

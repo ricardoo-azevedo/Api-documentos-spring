@@ -2,18 +2,19 @@ package br.com.ricardoo_azevedo.api_documentos_spring.services.interfaces;
 
 import java.util.List;
 
-import br.com.ricardoo_azevedo.api_documentos_spring.dtos.input.EtapaEnsinoInputDto;
-import br.com.ricardoo_azevedo.api_documentos_spring.dtos.output.EtapaEnsinoOutputDto;
+import br.com.ricardoo_azevedo.api_documentos_spring.dtos.EtapaEnsinoDto;
+
+
 
 public interface EtapaEnsinoServiceInterface {
 
-    EtapaEnsinoOutputDto salvar(EtapaEnsinoInputDto etapaEnsinoInputDto);
+    EtapaEnsinoDto salvar(EtapaEnsinoDto etapaEnsinoInputDto);
 
-    EtapaEnsinoOutputDto editar(EtapaEnsinoInputDto etapaEnsinoInputDto, Long id);
+    EtapaEnsinoDto editar(EtapaEnsinoDto etapaEnsinoInputDto, Long id);
 
-    List<EtapaEnsinoOutputDto> listar();
+    List<EtapaEnsinoDto> listar();
 
-    EtapaEnsinoOutputDto pesquisar(Long id);
+    EtapaEnsinoDto pesquisar(Long id);
 
     void deletar(Long id);
     

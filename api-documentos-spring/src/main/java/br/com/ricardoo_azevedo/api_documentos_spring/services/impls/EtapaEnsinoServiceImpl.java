@@ -6,8 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.ricardoo_azevedo.api_documentos_spring.dtos.input.EtapaEnsinoInputDto;
-import br.com.ricardoo_azevedo.api_documentos_spring.dtos.output.EtapaEnsinoOutputDto;
+import br.com.ricardoo_azevedo.api_documentos_spring.dtos.EtapaEnsinoDto;
 import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.exceptions.EtapaEnsinoNaoEncontradaException;
 import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.exceptions.IdInvalidoException;
 import br.com.ricardoo_azevedo.api_documentos_spring.exceptionHandler.exceptions.ListaVaziaException;
@@ -24,19 +23,19 @@ public class EtapaEnsinoServiceImpl implements EtapaEnsinoServiceInterface {
     private EtapaEnsinoRepository etapaEnsinoRepository;
 
     @Override
-    public EtapaEnsinoOutputDto salvar(EtapaEnsinoInputDto etapaEnsinoInputDto) {
+    public EtapaEnsinoDto salvar(EtapaEnsinoDto etapaEnsinoInputDto) {
         EtapaEnsino etapaEnsino = new EtapaEnsino();
         etapaEnsino.setTipoEnsino(TipoEnsino.valueOf(etapaEnsinoInputDto.getTipoEnsino()));
         etapaEnsino.setSubTipoEnsino(SubTipoEnsino.valueOf(etapaEnsinoInputDto.getSubTipoEnsino()));
         EtapaEnsino etapaSalva = etapaEnsinoRepository.save(etapaEnsino);
-        return new EtapaEnsinoOutputDto(
+        return new EtapaEnsinoDto(
                 etapaSalva.getId(),
                 etapaSalva.getTipoEnsino().toString(),
                 etapaSalva.getSubTipoEnsino().toString());
     }
 
     @Override
-    public EtapaEnsinoOutputDto editar(EtapaEnsinoInputDto etapaEnsinoInputDto, Long id) {
+    public EtapaEnsinoDto editar(EtapaEnsinoDto etapaEnsinoInputDto, Long id) {
         if (id == null) {
             throw new IdInvalidoException("O id esta Nulo!");
         }
@@ -48,7 +47,7 @@ public class EtapaEnsinoServiceImpl implements EtapaEnsinoServiceInterface {
         etapaEnsino.setTipoEnsino(TipoEnsino.valueOf(etapaEnsinoInputDto.getTipoEnsino()));
         etapaEnsino.setSubTipoEnsino(SubTipoEnsino.valueOf(etapaEnsinoInputDto.getSubTipoEnsino()));
         EtapaEnsino etapaEditada = etapaEnsinoRepository.save(etapaEnsino);
-        return new EtapaEnsinoOutputDto(
+        return new EtapaEnsinoDto(
                 etapaEditada.getId(),
                 etapaEditada.getTipoEnsino().toString(),
                 etapaEditada.getSubTipoEnsino().toString());
@@ -56,13 +55,13 @@ public class EtapaEnsinoServiceImpl implements EtapaEnsinoServiceInterface {
     }
 
     @Override
-    public List<EtapaEnsinoOutputDto> listar() {
+    public List<EtapaEnsinoDto> listar() {
         List<EtapaEnsino> etapaEnsinos = etapaEnsinoRepository.findAll();
         if (etapaEnsinos.isEmpty()) {
             throw new ListaVaziaException();
         }
         return etapaEnsinos.stream().map(
-                etapaEnsino -> new EtapaEnsinoOutputDto(
+                etapaEnsino -> new EtapaEnsinoDto(
                         etapaEnsino.getId(),
                         etapaEnsino.getTipoEnsino().toString(),
                         etapaEnsino.getSubTipoEnsino().toString()))
@@ -70,7 +69,7 @@ public class EtapaEnsinoServiceImpl implements EtapaEnsinoServiceInterface {
     }
 
     @Override
-    public EtapaEnsinoOutputDto pesquisar(Long id) {
+    public EtapaEnsinoDto pesquisar(Long id) {
         if (id == null) {
             throw new IdInvalidoException("O id esta Nulo!");
         }
@@ -78,7 +77,7 @@ public class EtapaEnsinoServiceImpl implements EtapaEnsinoServiceInterface {
             throw new IdInvalidoException();
         }
         return etapaEnsinoRepository.findById(id).map(
-                etapaEnsino -> new EtapaEnsinoOutputDto(
+                etapaEnsino -> new EtapaEnsinoDto(
                         etapaEnsino.getId(),
                         etapaEnsino.getTipoEnsino().toString(),
                         etapaEnsino.getSubTipoEnsino().toString()
@@ -96,7 +95,7 @@ public class EtapaEnsinoServiceImpl implements EtapaEnsinoServiceInterface {
         if(etapaEnsinoRepository.existsById(id) == false){
             throw new EtapaEnsinoNaoEncontradaException();
         }
-        etapaEnsinoRepository.deleteById(id);
+        etapaEnsinoRepository.deleteById(id);   
     }
 
 }
