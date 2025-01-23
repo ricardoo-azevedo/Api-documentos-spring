@@ -19,7 +19,7 @@ public class EscolaDto {
 
     }
 
-    Long id;
+    private Long id;
     
     @NotBlank(message = "O Nome não deve ser nulo")
     private String nome;
