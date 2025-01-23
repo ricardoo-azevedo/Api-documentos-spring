@@ -1,4 +1,5 @@
-package br.com.ricardoo_azevedo.api_documentos_spring.dtos.input;
+package br.com.ricardoo_azevedo.api_documentos_spring.dtos;
+
 
 import br.com.ricardoo_azevedo.api_documentos_spring.config.annotations.EnumPattern;
 import br.com.ricardoo_azevedo.api_documentos_spring.models.Usuario.UsuarioRole;
@@ -11,7 +12,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class UsuarioInputDto{
+public class UsuarioDto{
+
+    public UsuarioDto(String nomeCompleto, String email, String senha, String role){
+        this.nomeCompleto = nomeCompleto;
+        this.email = email;
+        this.senha = senha;
+        this.role = role;
+    }
+
+    private Long id;
 
     @NotBlank(message = "Nome precisa ser incluso")
     @Size(max = 225, message = "Ultrapassou o limite maximo de caracteres!")
@@ -28,4 +38,6 @@ public class UsuarioInputDto{
     @EnumPattern(enumClass = UsuarioRole.class, message = "Valores invalidos! Valores aceitos: Admin, Usuario")
     @NotNull
     private String role;
+
+    private java.sql.Timestamp dataCriacao;
 }

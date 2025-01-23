@@ -2,22 +2,22 @@ package br.com.ricardoo_azevedo.api_documentos_spring.services.interfaces;
 
 import java.util.List;
 
-import br.com.ricardoo_azevedo.api_documentos_spring.dtos.input.UsuarioInputDto;
-import br.com.ricardoo_azevedo.api_documentos_spring.dtos.output.UsuarioOutputDto;
+import br.com.ricardoo_azevedo.api_documentos_spring.dtos.UsuarioDto;
+
 
 public interface UsuarioServiceInterface{
 
-    UsuarioOutputDto salvar(UsuarioInputDto UsuarioInputDto);
+    UsuarioDto salvar(UsuarioDto UsuarioInputDto);
 
-    UsuarioOutputDto editarPorId(UsuarioInputDto UsuarioInputDto, Long id);
+    UsuarioDto editarPorId(UsuarioDto UsuarioInputDto, Long id);
 
-    UsuarioOutputDto editarPorNome(UsuarioInputDto UsuarioInputDto, String nome);
+    UsuarioDto editarPorNome(UsuarioDto UsuarioInputDto, String nome);
 
-    List<UsuarioOutputDto> listar();
+    List<UsuarioDto> listar();
 
-    UsuarioOutputDto pesquisarPorId(Long id);
+    UsuarioDto pesquisarPorId(Long id);
 
-    List<UsuarioOutputDto> pesquisarPorNome(String nome);
+    List<UsuarioDto> pesquisarPorNome(String nome);
 
     void deletarPorId(Long id);
 
